@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block heading %}
+
+
+{% endblock %}
+{% block body %}
+<h1>Các môn học</h1>
+<form action="{{url_for('update')}}" method="GET">
+   ID        : <input type="text" value="{{mh.id}}" name="id">
+   Mã môn học: <input type="text" value="{{mh.mamh}}" name="mamh"><br>
+   Tên môn học: <input type="text" value="{{mh.ten}}" name="ten"> <br>
+   Số tín chỉ:<input type="text" value="{{mh.sotin}}" name="sotin"> <br>
+   Sĩ số còn lại: <input type="text" value="{{mh.conlai}}" name="conlai"><br>
+   Giảng viên : 
+      <select name="gv" >
+         {% for gv in gvs %}
+         <option value="{{gv.ten}}">{{gv.ten}}</option>
+         {% endfor %}
+      </select>
+   <button>Sửa</button>
+</form>
+{% endblock %}

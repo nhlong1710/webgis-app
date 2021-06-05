@@ -1,0 +1,36 @@
+<html>
+   <h1>Thông tin sinh viên</h1>
+   <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <p>
+          {{ form.mssv.label }}<br>
+          {{ form.mssv }}<br>
+          {% for error in form.mssv.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.ten.label }}<br>
+          {{ form.ten }}<br>
+          {% for error in form.ten.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.lop.label }}<br>
+          {{ form.lop }}<br>
+          {% for error in form.lop.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+       {{ form.khoa.label }}<br>
+       {{ form.khoa }}<br>
+       {% for error in form.khoa.errors %}
+       <span style="color: red;">[{{ error }}]</span>
+       {% endfor %}
+    </p>
+      
+      <p>{{ form.submit() }}</p>   
+    </form>
+</html>

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block heading %}
+<h1>Home</h1>
+
+{% endblock %}
+{% block body %}
+{% with messages = get_flashed_messages() %}
+      <h2> {{messages[0]}} </h2>
+{% endwith %}
+{% endblock %}
+

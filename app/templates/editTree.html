@@ -1,0 +1,19 @@
+<h1>Edit Tree</h1>
+<form action="{{ url_for('editTree', id = tree.id) }}" method="post" >
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.loaicay.label }}<br>
+        {{ form.loaicay(value=tree.loaicay) }}<br>
+        {% for error in form.loaicay.errors %}
+            <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.chieucao.label }}<br>
+        {{ form.chieucao(value=tree.chieucao) }}<br>
+        {% for error in form.chieucao.errors %}
+            <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>

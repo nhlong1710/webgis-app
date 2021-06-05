@@ -1,0 +1,43 @@
+<html>
+   
+
+   {% block title %}
+   <a href="{{url_for('home')}}">Trang chủ</a> <br>
+   {% if current_user.is_authenticated %}
+      Hi {{current_user.user}}
+    <a href="{{url_for('logout')}}" >Đăng xuất</a><br>
+    <a href="{{url_for('updatett')}}" >Thêm thông tin</a><br>
+   {% endif %}
+   {% if current_user.is_authenticated %}
+    {% if current_user.user =="admin" %}
+    <a href="{{url_for('addmh')}}" >Thêm môn học</a><br>
+    <a href="{{url_for('updatemh')}}" >Sửa môn học</a><br>
+    <a href="{{url_for('deletemh')}}" >Xoá môn học</a><br>
+    
+    {% endif %}
+{% endif %}
+{% if current_user.is_authenticated %}
+{% if current_user.user !="admin" %}
+<a href="{{url_for('bookmh')}}" >Đăng kí môn học</a><br>
+<a href="{{url_for('viewtkb')}}" >Xem môn đã đăng ký</a><br>
+
+
+{% endif %}
+{% endif %}
+
+   {% if not current_user.is_authenticated %}
+ 
+    <a href="{{url_for('login')}}" >Đăng nhập</a><br>
+    <a href="{{url_for('signup')}}">Đăng kí</a><br>
+
+{% endif %}
+   
+   
+   
+   {% endblock %}
+
+   {% block body %}
+   
+   {% endblock %}
+
+</html>

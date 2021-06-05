@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block heading %}
+{% endblock %}
+{% block body %}
+<h1>Login</h1>
+
+ 
+
+<form action="" method="POST">
+  {{ form.hidden_tag() }}
+  <p>
+      {{ form.user.label }}<br>
+      {{ form.user }}<br>
+      {% for error in form.user.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>
+      {{ form.password.label }}<br>
+      {{ form.password }}<br>
+      {% for error in form.password.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+ 
+  
+  <p>{{ form.submit() }}</p>
+</form>
+{% with messages = get_flashed_messages() %}
+      <h2> {{messages[0]}} </h2>
+{% endwith %}
+{% endblock %}

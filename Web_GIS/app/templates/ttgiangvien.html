@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block heading %}
+
+
+{% endblock %}
+{% block body %}
+
+<html>
+   <h1>Thông tin giảng viên</h1>
+   <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <p>
+          {{ form.msgv.label }}<br>
+          {{ form.msgv }}<br>
+          {% for error in form.msgv.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.ten.label }}<br>
+          {{ form.ten }}<br>
+          {% for error in form.ten.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.khoa.label }}<br>
+          {{ form.khoa }}<br>
+          {% for error in form.khoa.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+     
+      
+      <p>{{ form.submit() }}</p>   
+    </form>
+</html>
+{% endblock %}
+
+
+
+
+

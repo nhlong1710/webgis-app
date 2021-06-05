@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block heading %}
+
+
+{% endblock %}
+{% block body %}
+<h1>Xem môn học đã đăng kí</h1>
+<form action="{{url_for('deletetkb')}}" method="GET">
+   <table>
+      <tr><th></th><th>MSSV</th><th>Sinh viên</th><th>Môn học</th><th>MSGV</th><th>Giảng viên giảng dạy</th></tr>
+      {% for tkb in tkbs %}
+      <tr>
+        
+         <th><input type="radio" value="{{tkb[5]}}" name="idtkb"></th>
+         <th>{{tkb[0]}}</th>
+         <th>{{tkb[1]}}</th>
+         <th>{{tkb[2]}}</th>
+         <th>{{tkb[3]}}</th>
+         <th>{{tkb[4]}}</th>
+         
+      </tr>
+      {% endfor %}
+   </table>
+   <button>Huỷ đăng kí</button>
+</form>
+{% endblock %}

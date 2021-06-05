@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block heading %}
+
+
+{% endblock %}
+{% block body %}
+<h1>Các môn học</h1>
+<form action="{{url_for('updatemh2')}}" method="GET">
+  <select  name ='id'>
+     {% for mh in mhs %}
+        <option value="{{mh.id}}">{{mh.mamh}} - {{mh.ten}} - Số tín:{{mh.sotin}} - Giảng viên:{{mh.giangvien}}</option>
+     {% endfor %}
+  </select> 
+  <button>Chọn</button> 
+</form>
+{% endblock %}

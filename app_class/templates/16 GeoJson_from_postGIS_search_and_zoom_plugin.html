@@ -1,0 +1,86 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+	<link rel="stylesheet" href="{{url_for('static', filename='search/search.css')}}" />
+	<script src="{{url_for('static', filename='search/search.js')}}"></script>
+</head>
+<body>
+
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+	<p id='demo'>
+	<input id="filterById">
+	<input type=button onclick="filter()" value="Filter"></input>
+	<script>
+		var mymap = L.map('mapid').setView([21.071566, 105.770268], 20);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		var myStyle1 = {
+		"color": "purple",
+		"fill-color": "purple",
+		"weight": 5,
+		"opacity": 0.65
+		};
+
+		var myStyle2 = {
+		"color": "green",
+		"fill-color": "green",
+		"weight": 5,
+		"opacity": 0.65
+		};
+
+		// AJAX to get data from API
+		geojson = JSON.parse({{ data }});
+		HUMGLayer =	L.geoJSON(geojson, {
+    style: function(feature) {
+				switch (feature.properties.loaiNha) {
+            case "kinh doanh": return myStyle1;
+            case "bt": return myStyle2;
+        }}});
+		mymap.addLayer(HUMGLayer);
+
+		// search
+		var searchControl = new L.Control.Search({
+			layer: HUMGLayer,
+			propertyName: 'id',
+			marker: false,
+			moveToLocation: function(latlng, id, map) {
+				//map.fitBounds( latlng.layer.getBounds() );
+				var zoom = mymap.getBoundsZoom(latlng.layer.getBounds());
+	  			mymap.setView(latlng, zoom); // access the zoom
+			}
+		});
+	//
+		searchControl.on('search:locationfound', function(e) {
+
+			//console.log('search:locationfound', );
+
+			//map.removeLayer(this._markerSearch)
+
+			e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+			if(e.layer._popup)
+				e.layer.openPopup();
+
+		}).on('search:collapsed', function(e) {
+
+			featuresLayer.eachLayer(function(layer) {	//restore feature color
+				featuresLayer.resetStyle(layer);
+			});
+		});
+
+		map.addControl( searchControl );  //inizialize search control
+
+	</script>
+
+</body>
+</html>

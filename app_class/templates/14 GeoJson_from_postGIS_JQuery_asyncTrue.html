@@ -1,0 +1,83 @@
+<html>
+<head>
+
+	<title>1st leaflet - Leaflet</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+	integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+	integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin="">
+  </script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="search/search.css" />
+	<script src="search/search.js"></script>
+
+</head>
+<body>
+
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+	<p id="demo"></p>
+
+	<script>
+
+		var mymap = L.map('mapid').setView([21.071566, 105.770268], 20);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(mymap);
+
+		var myStyle1 = {
+		"color": "purple",
+		"fill-color": "purple",
+		"weight": 5,
+		"opacity": 0.65
+		};
+
+		var myStyle2 = {
+		"color": "green",
+		"fill-color": "green",
+		"weight": 5,
+		"opacity": 0.65
+		};
+		// use JQUERY/AJAX
+		$.ajax({
+		      url: "http://localhost:5000/api/v1/postGIS",
+		      dataType: 'json',
+					//async: false, // async default = true
+		      success: function(data) {
+						geojson = data;
+            console.log(data);
+						var building = L.geoJSON(geojson, {
+						style: function(feature) {
+								switch (feature.properties.loaiNha) {
+										case "kinh doanh": return myStyle1;
+										case "bt": return myStyle2;
+									}
+								}
+								}).addTo(mymap);
+        }
+		    });
+
+		// code to remove non-printable and other non-valid JSON chars
+		//	geojsonText = JSON.stringify(geojson)
+			// geojsonT = geojsonText.replace(/\\n/g, "\\n")
+			// 					 .replace(/\\'/g, "\\'")
+			// 					 .replace(/\\"/g, '\\"')
+			// 					 .replace(/\\&/g, "\\&")
+			// 					 .replace(/\\r/g, "\\r")
+			// 					 .replace(/\\t/g, "\\t")
+			// 					 .replace(/\\b/g, "\\b")
+			// 					 .replace(/\\f/g, "\\f");
+			// // remove non-printable and other non-valid JSON chars
+			// geojsonT = geojsonText.replace(/[\u0000-\u0019]+/g,"");
+			// const obj = JSON.parse(geojsonT);
+			// document.querySelector('#demo').innerHTML= obj.features[0].geometry.coordinates[0][0][0][0];
+			// var lat = obj.features[0].geometry.coordinates[0][0][0][0];
+			// var lon = obj.features[0].geometry.coordinates[0][0][0][1];
+		//	mymap.panTo([lon, lat], {animate: true, duration: 10});
+	</script>
+
+</body>
+</html>

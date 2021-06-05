@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block heading %}
+<h1>Home</h1>
+
+{% endblock %}
+{% block body %}
+<h1>Thêm môn học</h1>
+   <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <p>
+          {{ form.mamh.label }}<br>
+          {{ form.mamh }}<br>
+          {% for error in form.mamh.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.ten.label }}<br>
+          {{ form.ten }}<br>
+          {% for error in form.ten.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+          {{ form.sotin.label }}<br>
+          {{ form.sotin }}<br>
+          {% for error in form.sotin.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+          {% endfor %}
+      </p>
+      <p>
+         {{ form.conlai.label }}<br>
+         {{ form.conlai }}<br>
+         {% for error in form.conlai.errors %}
+         <span style="color: red;">[{{ error }}]</span>
+         {% endfor %}
+     </p>
+     <p>
+        {{form.giangvien.label}} <br>
+        {{form.giangvien}}
+     </p>
+      
+      <p>{{ form.submit() }}</p>   
+    </form>
+{% with messages = get_flashed_messages() %}
+      <h2> {{messages[0]}} </h2>
+{% endwith %}
+{% endblock %}

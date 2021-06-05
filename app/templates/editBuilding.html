@@ -1,0 +1,40 @@
+<h1>Edit Building</h1>
+<form action="{{ url_for('editBuilding', id = building.id) }}" method="post" >
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name.label }}<br>
+        {{ form.name(value=building.name) }}<br>
+        {% for error in form.name.errors %}
+            <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.typehouse.label }}<br>
+        {{ form.typehouse(value=building.typehouse) }}<br>
+        {% for error in form.typehouse.errors %}
+            <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.floor.label }}<br>
+        {{ form.floor(value=building.floor) }}<br>
+        {% for error in form.floor.errors %}
+            <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.square.label }}<br>
+        {{ form.square(value=building.square) }}<br>
+        {% for error in form.square.errors %}
+            <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.addr_house.label }}<br>
+        {{ form.addr_house(value=building.addr_house) }}<br>
+        {% for error in form.addr_house.errors %}
+            <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
